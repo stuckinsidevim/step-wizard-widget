@@ -3,16 +3,16 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { StepperComponent } from './stepper/components/stepper/stepper.component';
+import { StepperModule } from './stepper/stepper.module';
 
 @NgModule({
   declarations: [
     AppComponent,
-    StepperComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    StepperModule
   ],
   providers: [],
   bootstrap: [AppComponent]

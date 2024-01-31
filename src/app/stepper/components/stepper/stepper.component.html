@@ -1,1 +1,33 @@
-<p>stepper works!</p>
+<div class="stepper-indicators">
+  <ng-container *ngFor="let step of stepperService.steps; let i = index">
+    <div
+      [class.active]="step === stepperService.currentStep"
+      [class.completed]="step.status === 'completed'"
+    >
+      {{ step.title }}
+    </div>
+  </ng-container>
+</div>
+<ng-content select="app-step"></ng-content>
+<div class="stepper-navigation">
+  <button
+    (click)="stepperService.previous()"
+    [disabled]="!stepperService.canGoPrevious"
+    *ngIf="!stepperService.isFirstStep"
+  >
+    Previous
+  </button>
+  <button
+    (click)="stepperService.next()"
+    [disabled]="!stepperService.canGoNext"
+    *ngIf="!stepperService.isLastStep"
+  >
+    Next
+  </button>
+  <button
+    (click)="stepperService.skip()"
+    *ngIf="stepperService.currentStep?.skippable"
+  >
+    Skip
+  </button>
+</div>
