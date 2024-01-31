@@ -1,8 +1,8 @@
 import {
   AfterContentChecked,
-  AfterContentInit,
   Component,
   Input,
+  TemplateRef,
 } from "@angular/core";
 import { StepperService } from "../../services/stepper.service";
 import { Subscription } from "rxjs";
@@ -12,9 +12,11 @@ import { Subscription } from "rxjs";
   templateUrl: "./step.component.html",
   styleUrls: ["./step.component.scss"],
 })
-export class StepComponent implements AfterContentChecked {
+export class StepComponent {
   @Input()
   title!: string;
+  @Input()
+  headerTemplate!: TemplateRef<any>;
 
   isActive: boolean = false;
 
@@ -43,6 +45,9 @@ export class StepComponent implements AfterContentChecked {
     this.subscriptions.add(
       this.stepperService.activeStepId$.subscribe((activeStepId) => {
         this.isActive = activeStepId === this.id;
+        if (this.isActive) {
+          this.completeStep();
+        }
       }),
     );
   }
@@ -50,15 +55,15 @@ export class StepComponent implements AfterContentChecked {
   ngOnDestroy() {
     this.subscriptions.unsubscribe();
   }
+  private completeStep() {
+    if (this.id) {
+      this.stepperService.completeStep(this.id);
+    }
+  }
 
   // @ContentChild("stepContent", { static: true })
   // contentTemplate!: TemplateRef<any>;
   // @ViewChild("contentRef") contentRef!: TemplateRef<any>;
-
-  ngAfterContentChecked() {
-    // change this to get the step form to do something
-    this.stepperService.completeStep(this._id);
-  }
 
   constructor(private stepperService: StepperService) {
   }

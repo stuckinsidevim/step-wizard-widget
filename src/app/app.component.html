@@ -1,6 +1,24 @@
 <app-stepper>
-  <app-step title="Step 1" skippable>hi</app-step>
-  <app-step title="Step 2">bye</app-step>
-  <app-step title="Step 3">hello</app-step>
+  <app-step title="Step 1" [headerTemplate]="step1">
+    <h2>Step 1</h2>
+    <p>This is step 1</p>
+  </app-step>
+  <app-step title="Step 2" [headerTemplate]="step2">
+    <h2>Step 2</h2>
+    <p>This is step 2</p>
+  </app-step>
+  <app-step title="Step 3" skippable [headerTemplate]="step3">
+    <h2>Step 3</h2>
+    <p>This is step 3</p>
+  </app-step>
+  <app-step title="Step 4" [headerTemplate]="step4">
+    <h2>Complete</h2>
+    <p>All the steps are successfully completed</p>
+  </app-step>
 </app-stepper>
+
+<ng-template #step1><i class="fa-solid fa-folder-open fa-xl"></i></ng-template>
+<ng-template #step2><i class="fa-solid fa-pencil fa-xl"></i></ng-template>
+<ng-template #step3><i class="fa-solid fa-image fa-xl"></i></ng-template>
+<ng-template #step4><i class="fa-solid fa-check fa-xl"></i></ng-template>
 <router-outlet></router-outlet>

@@ -1,3 +1,66 @@
 .active {
-  color: red;
+  transform: scale(1.1);
+}
+.clickable {
+  cursor: pointer;
+}
+.stepper {
+  &-indicators {
+    position: relative;
+    display: flex;
+    gap: 100px;
+    justify-content: center;
+    margin-bottom: 20px;
+    .line {
+      height: 3px;
+      width: 100%;
+      position: absolute;
+      background: hotpink;
+      z-index: -99;
+      top: 0;
+      bottom: 0;
+      margin: auto 0;
+    }
+  }
+  .icon {
+    --w: 60px;
+    width: var(--w);
+    height: var(--w);
+    display: grid;
+    place-items: center;
+    padding: 10px;
+    border: 3px solid hotpink;
+    border-radius: 100%;
+    color: blue;
+    background: white;
+  }
+  &-navigation {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+  }
+}
+
+.tooltip {
+  position: relative;
+  display: inline-block;
+  border-bottom: 1px dotted black;
+}
+
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 50px;
+  font-size: 12px;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  padding: 5px 0;
+  border-radius: 6px;
+  position: absolute;
+  z-index: 1;
+  transform: translateY(-180%);
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
 }

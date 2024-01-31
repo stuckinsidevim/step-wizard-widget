@@ -9,11 +9,11 @@ export class Step {
   skippable?: boolean;
   status: StepStatus;
   // active?: boolean;
-  // content: TemplateRef<any>;
+  headerTemplate: TemplateRef<any>;
 
   constructor(
     title: string,
-    // content: TemplateRef<any>,
+    headerTemplate: TemplateRef<any>,
     skippable?: boolean,
     status: StepStatus = "inactive",
   ) {
@@ -21,7 +21,7 @@ export class Step {
     this.skippable = skippable;
     this.status = status;
     this.id = this.uid();
-    // this.content = content;
+    this.headerTemplate = headerTemplate;
   }
   private uid() {
     return "id-" + Date.now().toString(36) +
@@ -94,18 +94,22 @@ export class StepperService {
     return this._steps;
   }
 
-  private canGoTo(index: number): boolean {
+  public canGoTo(index: number): boolean {
     if (index < 0 || index >= this.totalSteps) {
+      console.log("can go to ", index, false);
       return false;
     }
     if (!this.linear) {
+      console.log("can go to ", index, true);
       return true;
     }
     // In a linear stepper, ensure all previous steps are completed
-    return this._steps.slice(0, index - 1).every((step) =>
+    const value = this._steps.slice(0, index).every((step) =>
       step.status === "completed" ||
       (step.skippable && step.status === "visited")
     );
+    console.log("can go to ", index, value);
+    return value;
   }
 
   get canGoNext(): boolean {

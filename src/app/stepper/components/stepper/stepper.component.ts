@@ -27,6 +27,7 @@ export class StepperComponent implements AfterContentInit, OnDestroy {
       const step = new Step(
         stepComponent.title,
         // stepComponent.contentRef,
+        stepComponent.headerTemplate,
         stepComponent.skippable,
       );
       this.stepperService.addStep(step);
